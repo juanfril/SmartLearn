@@ -1,17 +1,23 @@
-.PHONY: build up down migrate createsuperuser
+.PHONY: build up down create-migration migrate create-superuser shell
 
 build:
-    docker-compose build
+	docker-compose build
 
 up:
-    docker-compose up
+	docker-compose up -d
 
 down:
-    docker-compose down
+	docker-compose down
+
+create-migration:
+	docker-compose exec web python manage.py makemigrations
 
 migrate:
-    docker-compose exec web python manage.py migrate
+	docker-compose exec web python manage.py migrate
 
-createsuperuser:
-    docker-compose exec web python manage.py createsuperuser
+create-superuser:
+	docker-compose exec web python manage.py createsuperuser
+
+shell:
+	docker-compose exec web python manage.py shell
 
