@@ -22,4 +22,4 @@ shell:
 	docker-compose exec web python manage.py shell
 
 test:
-	docker-compose exec web python manage.py test
+	docker-compose exec web pytest --cov=courses --cov-report=term-missing -q -s
