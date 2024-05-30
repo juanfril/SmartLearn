@@ -4,12 +4,18 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import viewsets
 
 from courses.models import Course
+from courses.serializers import CourseSerializer
 
 def course_list(request: HttpRequest) -> HttpResponse:
   courses: List[Course] = Course.objects.all()
-  return render(request, 'courses/course_list.html', {'coursesa': courses})
+  return render(request, 'courses/course_list.html', {'courses': courses})
+
+class CourseViewSet(viewsets.ModelViewSet):
+  queryset = Course.objects.all()
+  serializer_class = CourseSerializer
 
 class CourseGenerationView(APIView):
   def post(self, request: HttpRequest) -> Response:
