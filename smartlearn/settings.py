@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'courses',
     'users',
+    'enrollments',
     'rest_framework',
     'rest_framework_simplejwt',
 ]
