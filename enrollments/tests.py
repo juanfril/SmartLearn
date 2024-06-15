@@ -1,9 +1,8 @@
 import pytest
 from django.contrib.auth.models import User
 from courses.models import Course
-from rest_framework.test import APIClient
-
 from enrollments.models import Enrollment
+from rest_framework.test import APIClient
 
 @pytest.fixture
 def api_client():
@@ -32,4 +31,7 @@ def test_get_enrollments(api_client, course, user):
     api_client.login(username='testuser', password='password123')
     response = api_client.get('/api/enrollments/')
     assert response.status_code == 200
-    assert "testuser" in response.content.decode()
+    content = response.json()
+    assert len(content) == 1
+    assert content[0]['user'] == user.id
+    assert content[0]['course'] == course.id
